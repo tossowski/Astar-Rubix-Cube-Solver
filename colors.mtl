@@ -1,0 +1,30 @@
+newmtl Blue
+Ka 0.0000 0.0000 1.0000
+Kd 0.0000 0.0000 1.0000
+Ks 0.0000 0.0000 1.0000
+illum 2
+newmtl White
+Ka 1 1 1
+Kd 1 1 1
+Ks 1 1 1
+illum 2
+newmtl Green
+Ka 0.2 0.7 0.3
+Kd 0.2 0.7 0.3
+Ks 0.2 0.7 0.3
+illum 2
+newmtl Red
+Ka 1 0 0
+Kd 1 0 0
+Ks 1 0 0
+illum 2
+newmtl Orange
+Ka 1 0.5 0.1
+Kd 1 0.5 0.1
+Ks 1 0.5 0.1
+illum 2
+newmtl Yellow
+Ka 0.9 1 0.1
+Kd 0.9 1 0.1
+Ks 0.9 1 0.1
+illum 2
