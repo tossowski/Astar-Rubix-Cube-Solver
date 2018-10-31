@@ -25,6 +25,8 @@ class Face(enum.Enum):
 class Axis(enum.Enum):
     Horizontal = 0 # Turn along horizontal AXIS
     Vertical = 1 # Turn along vertical AXIS
+    Depth = 2 # Turn along depth axis (like turning front face)
+
 
 class Rotation(enum.Enum):
     Clockwise = 1 # Clockwise turn
@@ -137,6 +139,13 @@ class Cube:
             self.move(Axis.Vertical, Rotation.Counterclockwise, i,state)
             yield state
             self.move(Axis.Vertical, Rotation.Clockwise, i,state)
+        for i in range(self.dim):
+            self.move(Axis.Depth, Rotation.Clockwise, i,state)
+            yield state
+            self.move(Axis.Depth, Rotation.Counterclockwise, i,state)
+            self.move(Axis.Depth, Rotation.Counterclockwise, i,state)
+            yield state
+            self.move(Axis.Depth, Rotation.Clockwise, i,state)
 
 
 
@@ -162,7 +171,7 @@ class Cube:
                 self.swapEntries(s[Face.R.value][strip,:], s[Face.B.value][strip,:])
                 self.swapEntries(s[Face.B.value][strip,:], s[Face.L.value][strip,:])
         # Vertical turn
-        else:
+        elif (axis.value == 0):
             # Clockwise turn
             if (rotation.value == 1):
                 self.swapEntries(s[Face.F.value][:,strip], s[Face.T.value][:,strip])
@@ -173,6 +182,17 @@ class Cube:
                 self.swapEntries(s[Face.F.value][:,strip], s[Face.D.value][:,strip])
                 self.swapEntries(s[Face.D.value][:,strip], s[Face.B.value][:,strip])
                 self.swapEntries(s[Face.B.value][:,strip], s[Face.T.value][:,strip])
+        else:
+            # Clockwise turn
+            if (rotation.value == 1):
+                self.swapEntries(s[Face.D.value][:,strip], s[Face.R.value][:,strip])
+                self.swapEntries(s[Face.R.value][:,strip], s[Face.T.value][:,strip])
+                self.swapEntries(s[Face.T.value][:,strip], s[Face.L.value][:,strip])
+            # Counterclockwise turn
+            else:
+                self.swapEntries(s[Face.D.value][:,strip], s[Face.L.value][:,strip])
+                self.swapEntries(s[Face.L.value][:,strip], s[Face.T.value][:,strip])
+                self.swapEntries(s[Face.T.value][:,strip], s[Face.R.value][:,strip])
 
 
     # Heuristic function for a single face: take 9 - (frequency of color that
@@ -192,7 +212,7 @@ class Cube:
         return total / 12
 
     # Returns a set of moves required to solve the cube
-    def astar(self, heur, s):
+    def astar(self,s, heur):
         node = (s.tostring(), 0)
         visited = set()
         frontier = PriorityQueue()
