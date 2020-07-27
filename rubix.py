@@ -76,9 +76,9 @@ class Cube:
 
 
     # Generates the obj file representing the cube. File written is named cube.obj
-    def generateOBJ(self,s):
+    def generateOBJ(self,s, num):
         count = 1
-        with open("cube.obj", "w") as f:
+        with open("cube" + str(num) + ".obj", "w") as f:
             f.write("mtllib colors.mtl \n")
             points = np.array([(y,-1.5,x) for x in np.linspace(1.5,-1.5,self.dim+1) for y in np.linspace(-1.5,1.5,self.dim+1)])
             count = self.writePointsToFile(points, count, f, s[0])
@@ -98,6 +98,7 @@ class Cube:
     # Input: n: Number of moves to scramble it
     def scramble(self, s, n):
         if n == 0:
+            self.F = s
             return s
 
         next_state = [x.copy() for x in self.get_successors(s)]
