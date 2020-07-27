@@ -2,4 +2,7 @@ This is a program that solves rubix cubes using A* search.
 
 Usage: python3 solver.py
 
+Running this script prompts you for a number of scrambles. Then the program saves the scrambled state of the cube in a .obj file
+called cube.obj. The program proceeds to solve the scrambled cube, printing out the time it took along with the number of moves.
+
 Note: Struggles with more than 7 or 8 scrambles. Heuristic needs improvement.
